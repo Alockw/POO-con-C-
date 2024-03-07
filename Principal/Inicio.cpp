@@ -1,11 +1,9 @@
 #include<iostream>
-#include "../salud/Persona.cpp"
+#include "../salud/Persona.h"
 using namespace std;
 class Inicio{
     
 };
-int main(){
-
+int main(){ 
     Persona user;
-    
-}
+};

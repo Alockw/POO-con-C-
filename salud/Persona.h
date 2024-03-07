@@ -81,11 +81,3 @@ class Persona{
     }
 
 };
-int main(){
-Persona persona1;
-   persona1.pedirDatos();
-   persona1.mostrarPersona();
-   persona1.calcularMc();
-   persona1.mayorEdad();
-   return 0;
-};
