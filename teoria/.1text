@@ -20,3 +20,5 @@
 //3.accesores
 //4.metodos propios
 //this>(nombre del atributo si se llaman igual)
+//el polimorfismo siempre se habla cuando tenemos muchas clases relacinadas por una erencia 
+//el polimorfimos toma el metodo que trae y lo utuliza para hacer difetnetes tareas 
