@@ -39,11 +39,11 @@ public:
         int edad = fecha - 2024;
         if (edad < 18)
         {
-            cout << "el usuario es menor de edad" << edad << endl;
+            cout << "el usuario es menor de edad " << edad << endl;
         }
         else
         {
-            cout << "el usuario es mayor de edad" << edad << endl;
+            cout << "el usuario es mayor de edad " << edad << endl;
         }
         return edad;
     }
