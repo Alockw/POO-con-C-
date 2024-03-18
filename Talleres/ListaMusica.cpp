@@ -14,7 +14,7 @@ struct Cancion
     Cancion(string titulo, string genero) : titulo(titulo), genero(genero) {}
 };
 
-// Función para mostrar la lista de canciones
+// Funcion para mostrar la lista de canciones
 void mostrarCanciones(const list<Cancion> &canciones)
 {
     for (const auto &cancion : canciones)
@@ -23,13 +23,13 @@ void mostrarCanciones(const list<Cancion> &canciones)
     }
 }
 
-// Función para agregar una canción a la lista
+// Funcion para agregar una canción a la lista
 void agregarCancion(list<Cancion> &canciones, string titulo, string genero)
 {
     canciones.push_back(Cancion(titulo, genero));
 }
 
-// Función para eliminar una canción de la lista por título
+// Funcion para eliminar una canción de la lista por título
 void eliminarCancion(list<Cancion> &canciones, string titulo)
 {
     canciones.remove_if([&titulo](const Cancion &cancion)
