@@ -6,10 +6,10 @@ using namespace std;
 struct Cancion
 {
     string titulo; // Atributo para el título de la canción
-    string genero; // Atributo para el género de la canción
-
+    string cantante; // Atributo para el cantante
+    string duracion; //Atributo para la duracion
     // Constructor para inicializar una canción con título y género
-    Cancion(string titulo, string genero) : titulo(titulo), genero(genero) {}
+    Cancion(string titulo, string cantante, string duracion) : titulo(titulo), genero(genero), duracion(duracion) {}
 };
 
 // Estructura para representar un nodo en una lista enlazada
@@ -33,7 +33,7 @@ void imprimirLista(Node *head)
 {
     while (head != nullptr) // Mientras no se llegue al final de la lista
     {
-        cout << "Titulo: " << head->data.titulo << ", Genero: " << head->data.genero << endl; // Imprime los datos del nodo actual
+        cout << "Titulo: " << head->data.titulo << ", Cantante: " << head->data.cantante << ", Duracion: "<<head->data.duracion<< endl; // Imprime los datos del nodo actual
         head = head->next;                                                                    // Avanza al siguiente nodo
     }
 }
@@ -43,14 +43,14 @@ void mostrarCanciones(const list<Cancion> &canciones)
 {
     for (const auto &cancion : canciones) // Para cada canción en la lista
     {
-        cout << "Titulo: " << cancion.titulo << ", Genero: " << cancion.genero << endl; // Imprime los datos de la canción
+        cout << "Titulo: " << cancion.titulo << ", Cantante: " << cancion.cantante << ", Duracion: "<<cancion.duracion<< endl; // Imprime los datos de la canción
     }
 }
 
 // Función para agregar una canción a la lista
-void agregarCancion(list<Cancion> &canciones, string titulo, string genero)
+void agregarCancion(list<Cancion> &canciones, string titulo, string cantante, string duracion)
 {
-    canciones.push_back(Cancion(titulo, genero)); // Agrega una nueva canción al final de la lista
+    canciones.push_back(Cancion(titulo, cantante, duracion)); // Agrega una nueva canción al final de la lista
 }
 
 // Función para eliminar una canción de la lista por título
@@ -77,8 +77,8 @@ int main()
     list<Cancion> listaCancionesPredeterminada;
 
     // Agregar algunas canciones de ejemplo a la lista predeterminada
-    agregarCancion(listaCancionesPredeterminada, "Frijolero", "Rock");
-    agregarCancion(listaCancionesPredeterminada, "Baby_justi_bieber", "Pop");
+    agregarCancion(listaCancionesPredeterminada, "Frijolero", "panchos","1:56");
+    agregarCancion(listaCancionesPredeterminada, "Baby","justi_bieber", "3:23");
 
     // Mostrar las canciones existentes en la lista predeterminada
     cout << "Lista de canciones predeterminada:" << endl;
@@ -213,15 +213,20 @@ int main()
     }
 
     // Iteración sobre cada canción en la lista de canciones del amigo
-    for (const auto &cancion : listaCancionesAmigo)
+    if (buscarCancionPorTitulo(listaCancionesUsuario, titulo))
     {
-        // Insertar cada canción al inicio de la lista enlazada
-        insertarInicio(head, cancion);
+    cout << "La canción '" << titulo << "' ya existe en la lista de usuario." << endl;
     }
-
-    // Imprimir el mensaje de inicio de la lista de canciones del jam
-    cout << "Lista de canciones del jam : " << endl;
-
+    else
+    {
+        for (const auto &cancion : listaCancionesAmigo)
+        {
+            // Insertar cada canción al inicio de la lista enlazada
+            insertarInicio(head, cancion);
+            }
+            // Imprimir el mensaje de inicio de la lista de canciones del jam
+            cout << "Lista de canciones del jam : " << endl;
+            }
     // Llamar a la función para imprimir la lista enlazada
     imprimirLista(head);
     return 0;
