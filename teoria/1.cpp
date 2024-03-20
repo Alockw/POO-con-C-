@@ -47,3 +47,4 @@
 //hay metodos que se llaman push_back(tamaño) ese agrega elementos a la lista 
 //list<int> Lista; (forma de hacer una lista )
 //para poder utilizar el push_back tiene que tener esto nombredeLista.pusch_back
+//encapsulamiento es cuando es this en un setter
