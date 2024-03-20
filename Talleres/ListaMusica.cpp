@@ -91,7 +91,7 @@ int main()
 
     while (true)
     {
-        cout << "que lista de reproduccion quieres escoger (1)propia o (2)amigo " << endl;
+        cout << "que lista de reproduccion quieres escoger (1)propia o (2)amigo o(3)salir a la lista compartida" << endl;
         cin >> opcion; // Corregido: se cambió la coma por un punto y coma
         if (opcion == 1)
         {
@@ -205,15 +205,24 @@ int main()
     }
     Node *head = nullptr;
     // Corrección: Iterar sobre cada lista y agregar cada canción a la lista enlazada
+    // Iteración sobre cada canción en la lista de canciones del usuario
     for (const auto &cancion : listaCancionesUsuario)
     {
+        // Insertar cada canción al inicio de la lista enlazada
         insertarInicio(head, cancion);
     }
+
+    // Iteración sobre cada canción en la lista de canciones del amigo
     for (const auto &cancion : listaCancionesAmigo)
     {
+        // Insertar cada canción al inicio de la lista enlazada
         insertarInicio(head, cancion);
     }
+
+    // Imprimir el mensaje de inicio de la lista de canciones del jam
     cout << "Lista de canciones del jam : " << endl;
+
+    // Llamar a la función para imprimir la lista enlazada
     imprimirLista(head);
     return 0;
 }
