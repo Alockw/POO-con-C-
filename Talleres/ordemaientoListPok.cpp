@@ -2,20 +2,21 @@
 using namespace std;
 //ordemantiento de listas
 struct Node{
-    int data;
+    string valor;
+    string pinta;
     Node* next;
-    Node(int val):data(val),next(nullptr){}
+    Node(string valor, string pinta):valor(valor),pinta(pinta),next(nullptr){}
 };
 //funcion para insertar un nodo al principio de la lista
-void insertarInicioList(Node* &head,int val){
-    Node* nuevoNodo=new Node(val);
+void insertarInicioList(Node* &head,string valor, string pinta){
+    Node* nuevoNodo=new Node(pinta);
     nuevoNodo->next=head;
     head=nuevoNodo;
 };
 //funcion para impirmir la lista
 void imprimirLista(Node* head){
     while(head!=nullptr){
-        cout<<head->data<<" ";
+        cout<<head->valor<<" ";
         head=head->next;
     }
     cout<<endl;
@@ -28,13 +29,13 @@ void ordeLista(Node* &head){
     Node* current=head;
     while(current!=nullptr){
         Node* nextNode=current->next;
-        if (sorted==nullptr ||sorted->data>=current->data){
+        if (sorted==nullptr ||sorted->pinta>=current->pinta){
             current->next=sorted;
             sorted=current;
         }
         else {
             Node*temp=sorted;
-            while(temp->next!=nullptr && temp->next->data<current->data){
+            while(temp->next!=nullptr && temp->next->pinta<current->pinta){
                 temp=temp->next;
             }
             current->next=temp->next;
@@ -46,10 +47,10 @@ void ordeLista(Node* &head){
 };
 int main(){
     Node* head=nullptr;
-    insertarInicioList(head,50);
-    insertarInicioList(head,100);
-    insertarInicioList(head,24);
-    insertarInicioList(head,1);
+    insertarInicioList(head,"5","diamante");
+    insertarInicioList(head,"1","corazon");
+    insertarInicioList(head,"9","picas");
+    insertarInicioList(head,"3","treboles");
     cout<<"lista original es: "<<endl;
     imprimirLista(head);
     ordeLista(head);
