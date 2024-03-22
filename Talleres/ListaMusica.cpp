@@ -5,11 +5,11 @@
 using namespace std;
 struct Cancion
 {
-    string titulo; // Atributo para el título de la canción
+    string titulo;   // Atributo para el título de la canción
     string cantante; // Atributo para el cantante
-    string duracion; //Atributo para la duracion
+    string duracion; // Atributo para la duracion
     // Constructor para inicializar una canción con título y género
-    Cancion(string titulo, string cantante, string duracion) : titulo(titulo), genero(genero), duracion(duracion) {}
+    Cancion(string titulo, string cantante, string duracion) : titulo(titulo), cantante(cantante), duracion(duracion) {}
 };
 
 // Estructura para representar un nodo en una lista enlazada
@@ -33,8 +33,8 @@ void imprimirLista(Node *head)
 {
     while (head != nullptr) // Mientras no se llegue al final de la lista
     {
-        cout << "Titulo: " << head->data.titulo << ", Cantante: " << head->data.cantante << ", Duracion: "<<head->data.duracion<< endl; // Imprime los datos del nodo actual
-        head = head->next;                                                                    // Avanza al siguiente nodo
+        cout << "Titulo: " << head->data.titulo << ", Cantante: " << head->data.cantante << ", Duracion: " << head->data.duracion << endl; // Imprime los datos del nodo actual
+        head = head->next;                                                                                                                 // Avanza al siguiente nodo
     }
 }
 
@@ -43,7 +43,7 @@ void mostrarCanciones(const list<Cancion> &canciones)
 {
     for (const auto &cancion : canciones) // Para cada canción en la lista
     {
-        cout << "Titulo: " << cancion.titulo << ", Cantante: " << cancion.cantante << ", Duracion: "<<cancion.duracion<< endl; // Imprime los datos de la canción
+        cout << "Titulo: " << cancion.titulo << ", Cantante: " << cancion.cantante << ", Duracion: " << cancion.duracion << endl; // Imprime los datos de la canción
     }
 }
 
@@ -72,13 +72,92 @@ bool buscarCancionPorTitulo(const list<Cancion> &canciones, const string &titulo
 
     return it != canciones.end(); // Devuelve verdadero si la canción se encuentra en la lista
 }
+// Función para verificar si una canción ya existe en la lista enlazada
+bool existeCancionEnLista(Node *head, const string &titulo)
+{
+    Node *current = head;
+    while (current != nullptr)
+    {
+        if (current->data.titulo == titulo)
+        {
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+void ordenarCantantes(Node*& head) {
+    if (head == nullptr || head->next == nullptr) return;
+
+    list<Cancion> canciones;
+    Node* current = head;
+    while (current != nullptr) {
+        canciones.push_back(current->data);
+        current = current->next;
+    }
+
+    canciones.sort([](const Cancion& a, const Cancion& b) {
+        if (a.cantante != b.cantante) {
+            return a.cantante > b.cantante;
+        } else {
+            int duracionA = stoi(a.duracion.substr(0, a.duracion.find(':')));
+            int duracionB = stoi(b.duracion.substr(0, b.duracion.find(':')));
+            return duracionA > duracionB;
+        }
+    });
+
+    head = nullptr;
+    for (const auto& cancion : canciones) {
+        insertarInicio(head, cancion);
+    }
+}
+void ordenarTitulos(Node*& head) {
+    if (head == nullptr || head->next == nullptr) return;
+
+    list<Cancion> canciones;
+    Node* current = head;
+    while (current != nullptr) {
+        canciones.push_back(current->data);
+        current = current->next;
+    }
+
+    canciones.sort([](const Cancion& a, const Cancion& b) {
+        return a.titulo < b.titulo;
+    });
+
+    head = nullptr;
+    for (const auto& cancion : canciones) {
+        insertarInicio(head, cancion);
+    }
+}
+void ordenarPorDuracion(Node*& head) {
+    if (head == nullptr || head->next == nullptr) return;
+
+    list<Cancion> canciones;
+    Node* current = head;
+    while (current != nullptr) {
+        canciones.push_back(current->data);
+        current = current->next;
+    }
+
+    canciones.sort([](const Cancion& a, const Cancion& b) {
+        int duracionA = stoi(a.duracion.substr(0, a.duracion.find(':')));
+        int duracionB = stoi(b.duracion.substr(0, b.duracion.find(':')));
+        return duracionA > duracionB;
+    });
+
+    head = nullptr;
+    for (const auto& cancion : canciones) {
+        insertarInicio(head, cancion);
+    }
+}
 int main()
 {
     list<Cancion> listaCancionesPredeterminada;
 
     // Agregar algunas canciones de ejemplo a la lista predeterminada
-    agregarCancion(listaCancionesPredeterminada, "Frijolero", "panchos","1:56");
-    agregarCancion(listaCancionesPredeterminada, "Baby","justi_bieber", "3:23");
+    agregarCancion(listaCancionesPredeterminada, "Frijolero", "panchos", "1:56");
+    agregarCancion(listaCancionesPredeterminada, "Baby", "justi_bieber", "3:23");
 
     // Mostrar las canciones existentes en la lista predeterminada
     cout << "Lista de canciones predeterminada:" << endl;
@@ -102,22 +181,24 @@ int main()
 
                 if (opcion == 1)
                 {
-                    string titulo, genero;
+                    string titulo, cantante, duracion;
                     cout << "Ingrese el título de la cancion (si tiene espacion ponga_ en cada espacio): ";
                     cin >> titulo;
-                    cout << "Ingrese el genero de la cancion: ";
-                    cin >> genero;
+                    cout << "Ingrese el cantante de la cancion: ";
+                    cin >> cantante;
+                    cout << "Ingrese la duracion de la cancion: ";
+                    cin >> duracion;
 
                     // Verificar si la canción ya existe en la lista predeterminada
                     if (buscarCancionPorTitulo(listaCancionesPredeterminada, titulo))
                     {
                         cout << "La canción '" << titulo << "' ya existe en la lista predeterminada." << endl;
-                        agregarCancion(listaCancionesUsuario, titulo, genero);
+                        agregarCancion(listaCancionesUsuario, titulo, cantante, duracion);
                         cout << "Cancion agregada a la lista personal." << endl;
                     }
                     else
                     {
-                        agregarCancion(listaCancionesPredeterminada, titulo, genero);
+                        agregarCancion(listaCancionesPredeterminada, titulo, cantante, duracion);
                         cout << "Cancion agregada a la lista predeterminada." << endl;
                     }
                 }
@@ -152,22 +233,24 @@ int main()
 
                 if (opcion == 1)
                 {
-                    string titulo, genero;
+                    string titulo, cantante, duracion;
                     cout << "Ingrese el título de la cancion (si tiene espacion ponga_ en cada espacio): ";
                     cin >> titulo;
+                    cout << "Ingrese el cantante de la cancion: ";
+                    cin >> cantante;
                     cout << "Ingrese el genero de la cancion: ";
-                    cin >> genero;
+                    cin >> duracion;
 
                     // Verificar si la canción ya existe en la lista predeterminada
                     if (buscarCancionPorTitulo(listaCancionesPredeterminada, titulo))
                     {
                         cout << "La canción '" << titulo << "' ya existe en la lista predeterminada." << endl;
-                        agregarCancion(listaCancionesAmigo, titulo, genero);
+                        agregarCancion(listaCancionesAmigo, titulo, cantante, duracion);
                         cout << "Cancion agregada a la lista de amigo." << endl;
                     }
                     else
                     {
-                        agregarCancion(listaCancionesPredeterminada, titulo, genero);
+                        agregarCancion(listaCancionesPredeterminada, titulo, cantante, duracion);
                         cout << "Cancion agregada a la lista predeterminada." << endl;
                     }
                 }
@@ -189,7 +272,7 @@ int main()
                 }
 
                 // Mostrar las canciones actualizadas en la lista del amigo
-                cout << "Lista personal actualizada:" << endl;
+                cout << "Lista de amigo actualizada:" << endl;
                 mostrarCanciones(listaCancionesAmigo);
             }
         }
@@ -204,30 +287,39 @@ int main()
         }
     }
     Node *head = nullptr;
-    // Corrección: Iterar sobre cada lista y agregar cada canción a la lista enlazada
     // Iteración sobre cada canción en la lista de canciones del usuario
     for (const auto &cancion : listaCancionesUsuario)
     {
-        // Insertar cada canción al inicio de la lista enlazada
-        insertarInicio(head, cancion);
-    }
-
-    // Iteración sobre cada canción en la lista de canciones del amigo
-    if (buscarCancionPorTitulo(listaCancionesUsuario, titulo))
-    {
-    cout << "La canción '" << titulo << "' ya existe en la lista de usuario." << endl;
-    }
-    else
-    {
-        for (const auto &cancion : listaCancionesAmigo)
+        // Verificar si la canción ya existe en la lista enlazada final
+        if (!existeCancionEnLista(head, cancion.titulo))
         {
             // Insertar cada canción al inicio de la lista enlazada
             insertarInicio(head, cancion);
-            }
-            // Imprimir el mensaje de inicio de la lista de canciones del jam
-            cout << "Lista de canciones del jam : " << endl;
-            }
-    // Llamar a la función para imprimir la lista enlazada
+        }
+    }
+
+    // Iteración sobre cada canción en la lista de canciones del amigo
+    for (const auto &cancion : listaCancionesAmigo)
+    {
+        // Verificar si la canción ya existe en la lista enlazada final
+        if (!existeCancionEnLista(head, cancion.titulo))
+        {
+            // Insertar cada canción al inicio de la lista enlazada
+            insertarInicio(head, cancion);
+        }
+    }
+
+    // Imprimir el mensaje de inicio de la lista de canciones del jam
+    cout << "Lista de canciones del jam : " << endl;
+    imprimirLista(head);
+    ordenarCantantes(head);
+    cout << "Lista Ordenada (cantantes): " << endl;
+    imprimirLista(head);
+    ordenarTitulos(head);
+    cout << "Lista Ordenada (titulos): " << endl;
+    imprimirLista(head);
+    ordenarPorDuracion(head);
+    cout << "Lista Ordenada (duracion 1 a 3 minutos): " << endl;
     imprimirLista(head);
     return 0;
 }
