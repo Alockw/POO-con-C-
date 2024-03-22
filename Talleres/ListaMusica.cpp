@@ -86,68 +86,103 @@ bool existeCancionEnLista(Node *head, const string &titulo)
     }
     return false;
 }
-void ordenarCantantes(Node*& head) {
-    if (head == nullptr || head->next == nullptr) return;
+// Función para ordenar la lista de canciones por cantantes
+void ordenarCantantes(Node *&head)
+{
+    // Si la lista está vacía o solo tiene un elemento, no hay necesidad de ordenar
+    if (head == nullptr || head->next == nullptr)
+        return;
 
+    // Crea una lista de la STL para almacenar las canciones temporariamente
     list<Cancion> canciones;
-    Node* current = head;
-    while (current != nullptr) {
+    Node *current = head; // Inicializa un puntero al nodo actual
+    while (current != nullptr)
+    {
+        // Añade cada canción de la lista enlazada a la lista de la STL
         canciones.push_back(current->data);
-        current = current->next;
+        current = current->next; // Avanza al siguiente nodo
     }
 
-    canciones.sort([](const Cancion& a, const Cancion& b) {
+    // Ordena la lista de canciones por cantantes, y en caso de empate, por duración
+    canciones.sort([](const Cancion &a, const Cancion &b)
+                   {
         if (a.cantante != b.cantante) {
-            return a.cantante > b.cantante;
+            return a.cantante > b.cantante; // Ordena por cantantes en orden descendente
         } else {
+            // En caso de empate, ordena por duración en orden descendente
             int duracionA = stoi(a.duracion.substr(0, a.duracion.find(':')));
             int duracionB = stoi(b.duracion.substr(0, b.duracion.find(':')));
             return duracionA > duracionB;
-        }
-    });
+        } });
 
+    // Vacía la lista enlazada original
     head = nullptr;
-    for (const auto& cancion : canciones) {
+    // Reconstruye la lista enlazada con las canciones ordenadas
+    for (const auto &cancion : canciones)
+    {
         insertarInicio(head, cancion);
     }
 }
-void ordenarTitulos(Node*& head) {
-    if (head == nullptr || head->next == nullptr) return;
 
+// Función para ordenar la lista de canciones por títulos
+void ordenarTitulos(Node *&head)
+{
+    // Si la lista está vacía o solo tiene un elemento, no hay necesidad de ordenar
+    if (head == nullptr || head->next == nullptr)
+        return;
+
+    // Crea una lista de la STL para almacenar las canciones temporariamente
     list<Cancion> canciones;
-    Node* current = head;
-    while (current != nullptr) {
+    Node *current = head; // Inicializa un puntero al nodo actual
+    while (current != nullptr)
+    {
+        // Añade cada canción de la lista enlazada a la lista de la STL
         canciones.push_back(current->data);
-        current = current->next;
+        current = current->next; // Avanza al siguiente nodo
     }
 
-    canciones.sort([](const Cancion& a, const Cancion& b) {
-        return a.titulo < b.titulo;
-    });
+    // Ordena la lista de canciones por títulos en orden ascendente
+    canciones.sort([](const Cancion &a, const Cancion &b)
+                   { return a.titulo < b.titulo; });
 
+    // Vacía la lista enlazada original
     head = nullptr;
-    for (const auto& cancion : canciones) {
+    // Reconstruye la lista enlazada con las canciones ordenadas
+    for (const auto &cancion : canciones)
+    {
         insertarInicio(head, cancion);
     }
 }
-void ordenarPorDuracion(Node*& head) {
-    if (head == nullptr || head->next == nullptr) return;
 
+// Función para ordenar la lista de canciones por duración
+void ordenarPorDuracion(Node *&head)
+{
+    // Si la lista está vacía o solo tiene un elemento, no hay necesidad de ordenar
+    if (head == nullptr || head->next == nullptr)
+        return;
+
+    // Crea una lista de la STL para almacenar las canciones temporariamente
     list<Cancion> canciones;
-    Node* current = head;
-    while (current != nullptr) {
+    Node *current = head; // Inicializa un puntero al nodo actual
+    while (current != nullptr)
+    {
+        // Añade cada canción de la lista enlazada a la lista de la STL
         canciones.push_back(current->data);
-        current = current->next;
+        current = current->next; // Avanza al siguiente nodo
     }
 
-    canciones.sort([](const Cancion& a, const Cancion& b) {
+    // Ordena la lista de canciones por duración en orden descendente
+    canciones.sort([](const Cancion &a, const Cancion &b)
+                   {
         int duracionA = stoi(a.duracion.substr(0, a.duracion.find(':')));
         int duracionB = stoi(b.duracion.substr(0, b.duracion.find(':')));
-        return duracionA > duracionB;
-    });
+        return duracionA > duracionB; });
 
+    // Vacía la lista enlazada original
     head = nullptr;
-    for (const auto& cancion : canciones) {
+    // Reconstruye la lista enlazada con las canciones ordenadas
+    for (const auto &cancion : canciones)
+    {
         insertarInicio(head, cancion);
     }
 }
@@ -176,13 +211,13 @@ int main()
         {
             while (true)
             {
-                cout << "¿Que desea hacer con su lista personal? (Agregar(1)/Eliminar(2)/Salir(3)): ";
+                cout << "Que desea hacer con su lista personal? (Agregar(1)/Eliminar(2)/Salir(3)): ";
                 cin >> opcion;
 
                 if (opcion == 1)
                 {
                     string titulo, cantante, duracion;
-                    cout << "Ingrese el título de la cancion (si tiene espacion ponga_ en cada espacio): ";
+                    cout << "Ingrese el titulo de la cancion (si tiene espacion ponga_ en cada espacio): ";
                     cin >> titulo;
                     cout << "Ingrese el cantante de la cancion: ";
                     cin >> cantante;
@@ -205,7 +240,7 @@ int main()
                 else if (opcion == 2)
                 {
                     string titulo;
-                    cout << "Ingrese el título de la cancion a eliminar: ";
+                    cout << "Ingrese el titulo de la cancion a eliminar: ";
                     cin >> titulo;
                     eliminarCancion(listaCancionesUsuario, titulo);
                 }
@@ -228,13 +263,13 @@ int main()
         {
             while (true)
             {
-                cout << "¿Que desea hacer con la lista de su amigo? (Agregar(1)/Eliminar(2)/Salir(3)): ";
+                cout << "Que desea hacer con la lista de su amigo? (Agregar(1)/Eliminar(2)/Salir(3)): ";
                 cin >> opcion;
 
                 if (opcion == 1)
                 {
                     string titulo, cantante, duracion;
-                    cout << "Ingrese el título de la cancion (si tiene espacion ponga_ en cada espacio): ";
+                    cout << "Ingrese el titulo de la cancion (si tiene espacion ponga_ en cada espacio): ";
                     cin >> titulo;
                     cout << "Ingrese el cantante de la cancion: ";
                     cin >> cantante;
@@ -244,7 +279,7 @@ int main()
                     // Verificar si la canción ya existe en la lista predeterminada
                     if (buscarCancionPorTitulo(listaCancionesPredeterminada, titulo))
                     {
-                        cout << "La canción '" << titulo << "' ya existe en la lista predeterminada." << endl;
+                        cout << "La cancion '" << titulo << "' ya existe en la lista predeterminada." << endl;
                         agregarCancion(listaCancionesAmigo, titulo, cantante, duracion);
                         cout << "Cancion agregada a la lista de amigo." << endl;
                     }
@@ -257,7 +292,7 @@ int main()
                 else if (opcion == 2)
                 {
                     string titulo;
-                    cout << "Ingrese el título de la cancion a eliminar: ";
+                    cout << "Ingrese el titulo de la cancion a eliminar: ";
                     cin >> titulo;
                     eliminarCancion(listaCancionesAmigo, titulo);
                 }
@@ -268,7 +303,7 @@ int main()
                 }
                 else
                 {
-                    cout << "Opción no valida. Intente de nuevo." << endl;
+                    cout << "Opcion no valida. Intente de nuevo." << endl;
                 }
 
                 // Mostrar las canciones actualizadas en la lista del amigo
