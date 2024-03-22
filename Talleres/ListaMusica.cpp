@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 using namespace std;
+// STL: Biblioteca de plantillas estándar de C++ para simplificar el manejo de contenedores y algoritmos.
 struct Cancion
 {
     string titulo;   // Atributo para el título de la canción
