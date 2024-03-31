@@ -21,7 +21,23 @@ int main(){
     else{
         cout<<"el elemento "<<target<<" no esta en el array"<< endl;
     }
+    return 0;
 }
 //arbol Binario
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int value):data(value),left(nullptr),right(nullptr)
+};
+Node* buscar(Node* root, int key){
+    if(root==nullptr||root->data==key){
+        return root;
+    }
+        if(root->data<key){
+            return buscar()
+        }
+}
 //interpolacion
 //hasing
