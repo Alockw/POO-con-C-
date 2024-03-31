@@ -7,26 +7,25 @@ using namespace std;
 class Usuario
 {
 private:
-    string nombre;            // Nombre del usuario
-    long long int telefono;   // Número de teléfono del usuario
-    long long int contrasena; // Contraseña del usuario
+    std::string nombre;
+    long long int telefono;
+    long long int contrasena;
+    double saldo; // Variable para almacenar el saldo del usuario
 
 public:
-    // Constructor de la clase Usuario
-    Usuario(string nombre, long long int telefono, long long int contrasena)
-        : nombre(nombre), telefono(telefono), contrasena(contrasena) {}
+    Usuario(std::string nombre, long long int telefono, long long int contrasena, double saldo)
+        : nombre(nombre), telefono(telefono), contrasena(contrasena), saldo(saldo) {}
 
-    // Métodos getter para obtener los datos del usuario
-    string getNombre() const { return nombre; }
+    // Métodos para obtener información del usuario
+    std::string getNombre() const { return nombre; }
     long long int getTelefono() const { return telefono; }
     long long int getContrasena() const { return contrasena; }
+    double getSaldo() const { return saldo; }
 
-    // Métodos setter para modificar los datos del usuario
-    void setNombre(const string &nombre) { this->nombre = nombre; }
-    void setTelefono(long long int telefono) { this->telefono = telefono; }
-    void setContrasena(long long int contrasena) { this->contrasena = contrasena; }
+    // Métodos para actualizar el saldo del usuario
+    void agregarSaldo(double monto) { saldo += monto; }
+    void restarSaldo(double monto) { saldo -= monto; }
 };
-
 // Vector de usuarios predefinidos
 vector<Usuario> usuarios = {
     Usuario("Joseph", 3124208931, 1254),
@@ -41,13 +40,13 @@ bool iniciarSesion()
     bool sesionIniciada = false; // Bandera para indicar si la sesión ha sido iniciada
     int intentos = 0;            // Contador de intentos de inicio de sesión
 
-    cout << "bienvenido a Daviplata:\n"
+    cout << "bienvenido a Nequi:\n"
          << endl;
 
     // Bucle para intentar iniciar sesión hasta 3 veces
     while (!sesionIniciada && intentos < 3)
     {
-        cout << "Ingrese su numero de teléfono: ";
+        cout << "Ingrese su numero de telefono: ";
         cin >> telefono;
         cout << "Ingrese su contrasena: ";
         cin >> contrasena;
@@ -64,7 +63,7 @@ bool iniciarSesion()
         }
         if (!sesionIniciada)
         {
-            cout << "Número de teléfono o contraseña incorrectos. Intente de nuevo." << endl;
+            cout << "Numero de teléfono o contrasena incorrectos. Intente de nuevo." << endl;
             intentos++; // Incrementar el contador de intentos
         }
     }
@@ -72,7 +71,7 @@ bool iniciarSesion()
     // Si se alcanza el límite de intentos, mostrar un mensaje
     if (intentos >= 3)
     {
-        cout << "Ha alcanzado el límite de intentos. Por favor, intente más tarde." << endl;
+        cout << "Ha alcanzado el limite de intentos. Por favor, intente mas tarde." << endl;
     }
 
     return sesionIniciada;
