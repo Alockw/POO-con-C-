@@ -52,7 +52,7 @@ public:
     void mostrarMovimientosPorDiaYMes() {
         // Ordena los movimientos usando el operador < sobrecargado en la clase Movimiento
         sort(movimientos.begin(), movimientos.end());
-        cout << "Movimientos del usuario organizados por día de mayor a menor y luego por mes:" << endl;
+        cout << "Movimientos del usuario organizados por dia de mayor a menor y luego por mes:" << endl;
         for (const auto& movimiento : movimientos) {
             cout << movimiento.toString() << endl;
         }
@@ -67,7 +67,7 @@ public:
             }
             return a.getDia() > b.getDia();
         });
-        cout << "Movimientos del usuario organizados por mes de mayor a menor y luego por día:" << endl;
+        cout << "Movimientos del usuario organizados por mes de mayor a menor y luego por dia:" << endl;
         for (const auto& movimiento : movimientos) {
             cout << movimiento.toString() << endl;
         }
@@ -110,7 +110,7 @@ public:
         : usuario(usuario), monto(monto), numeroDestinatario(numeroDestinatario), dia(dia), mes(mes) {}
 
     void realizarTransaccion() {
-        cout << "Realizando pago de " << monto << " a " << numeroDestinatario << " el día " << dia << " del mes " << mes << endl;
+        cout << "Realizando pago de " << monto << " a " << numeroDestinatario << " el dia " << dia << " del mes " << mes << endl;
         usuario->restarSaldo(monto); // Actualiza el saldo del usuario
         cout << "Nuevo saldo: " << usuario->getSaldo() << endl;
     }
@@ -129,7 +129,7 @@ public:
         : usuario(usuario), monto(monto), dia(dia), mes(mes) {}
 
     void realizarTransaccion() {
-        cout << "Realizando recarga de " << monto << " a " << usuario->getNombre() << " el día " << dia << " del mes " << mes << endl;
+        cout << "Realizando recarga de " << monto << " a " << usuario->getNombre() << " el dia " << dia << " del mes " << mes << endl;
         usuario->agregarSaldo(monto); // Actualiza el saldo del usuario
         cout << "Nuevo saldo: " << usuario->getSaldo() << endl;
     }
